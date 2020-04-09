@@ -10,7 +10,7 @@ final class Configuration
 
     public string $token;
 
-    public string $password;
+    public ?string $password;
 
     public function __construct(string $token, ?string $password = null)
     {

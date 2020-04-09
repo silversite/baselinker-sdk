@@ -8,7 +8,7 @@ use SilverSite\BaseLinker\BaseLinkerRequestInterface;
 use SilverSite\BaseLinker\Model\Storage;
 use SilverSite\BaseLinker\Model\Storages;
 
-final class StoragesResource implements StoragesResourceResourceInterface
+final class StoragesResource implements StoragesResourceInterface
 {
     private const METHOD_NAME = 'getStoragesList';
 
@@ -19,17 +19,10 @@ final class StoragesResource implements StoragesResourceResourceInterface
         $this->request = $request;
     }
 
-    /**
-     * @throws StoragesNotFound
-     */
     public function getStoragesList(): array
     {
         /** @var Storages $response */
         $response = $this->request->post(Storages::class, self::METHOD_NAME);
-
-        if (\ERROR::class === $response->status) {
-            throw new StoragesNotFound('No storage found!');
-        }
 
         $storages = [];
 

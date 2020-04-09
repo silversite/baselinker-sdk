@@ -4,7 +4,11 @@ declare(strict_types=1);
 
 namespace SilverSite\BaseLinker;
 
+use SilverSite\BaseLinker\Resource\CategoryResourceInterface;
+use SilverSite\BaseLinker\Resource\StoragesResourceInterface;
+
 interface BaseLinkerClientInterface
 {
-    public function getStoragesListResource(): array;
+    public function getStoragesResource(): StoragesResourceInterface;
+    public function getCategoryResource(string $storageId): CategoryResourceInterface;
 }

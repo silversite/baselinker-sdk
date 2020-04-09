@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace SilverSite\BaseLinker;
 
-use SilverSite\BaseLinker\Resource\StoragesNotFound;
+use SilverSite\BaseLinker\Resource\CategoryResource;
+use SilverSite\BaseLinker\Resource\CategoryResourceInterface;
 use SilverSite\BaseLinker\Resource\StoragesResource;
+use SilverSite\BaseLinker\Resource\StoragesResourceInterface;
 
 class BaseLinkerClient implements BaseLinkerClientInterface
 {
@@ -16,11 +18,13 @@ class BaseLinkerClient implements BaseLinkerClientInterface
         $this->request = $request;
     }
 
-    /**
-     * @throws StoragesNotFound
-     */
-    public function getStoragesListResource(): array
+    public function getStoragesResource(): StoragesResourceInterface
     {
-        return (new StoragesResource($this->request))->getStoragesList();
+        return new StoragesResource($this->request);
+    }
+
+    public function getCategoryResource(string $storageId): CategoryResourceInterface
+    {
+        return new CategoryResource($this->request, $storageId);
     }
 }
