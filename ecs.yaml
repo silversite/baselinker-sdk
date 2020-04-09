@@ -1,0 +1,134 @@
+imports:
+    - { resource: 'vendor/symplify/easy-coding-standard/config/set/clean-code.yaml' }
+    - { resource: 'vendor/symplify/easy-coding-standard/config/set/common.yaml' }
+    - { resource: 'vendor/symplify/easy-coding-standard/config/set/php70.yaml' }
+    - { resource: 'vendor/symplify/easy-coding-standard/config/set/php71.yaml' }
+    - { resource: 'vendor/symplify/easy-coding-standard/config/set/psr2.yaml' }
+    - { resource: 'vendor/symplify/easy-coding-standard/config/set/psr12.yaml' }
+    - { resource: 'vendor/symplify/easy-coding-standard/config/set/symfony.yaml' }
+    - { resource: 'vendor/symplify/easy-coding-standard/config/set/symfony-risky.yaml' }
+
+services:
+    # most of these services are taken from symplify.yaml
+    # see https://github.com/Symplify/Symplify/blob/master/packages/CodingStandard/config/symplify.yaml
+
+    # Line length
+    Symplify\CodingStandard\Fixer\LineLength\LineLengthFixer: ~
+
+    # PHP 5.5
+    Symplify\CodingStandard\Fixer\Php\ClassStringToClassConstantFixer: ~
+
+    # Control Structures
+    Symplify\CodingStandard\Fixer\Property\ArrayPropertyDefaultValueFixer: ~
+    Symplify\CodingStandard\Fixer\ArrayNotation\StandaloneLineInMultilineArrayFixer: ~
+    Symplify\CodingStandard\Fixer\ControlStructure\RequireFollowedByAbsolutePathFixer: ~
+
+    # Comments
+    Symplify\CodingStandard\Fixer\Commenting\RemoveSuperfluousDocBlockWhitespaceFixer: ~
+
+    # Naming
+    PhpCsFixer\Fixer\PhpUnit\PhpUnitMethodCasingFixer: ~
+    Symplify\CodingStandard\Fixer\Naming\CatchExceptionNameMatchingTypeFixer: ~
+    Symplify\CodingStandard\Sniffs\Architecture\ExplicitExceptionSniff: ~
+    Symplify\CodingStandard\Sniffs\Naming\TraitNameSniff: ~
+
+    # Debug
+    Symplify\CodingStandard\Sniffs\Debug\DebugFunctionCallSniff: ~
+    Symplify\CodingStandard\Sniffs\Debug\CommentedOutCodeSniff: ~
+
+    # final classes
+    PhpCsFixer\Fixer\ClassNotation\FinalInternalClassFixer: ~
+
+    # multibyte
+    PhpCsFixer\Fixer\Alias\MbStrFunctionsFixer: ~
+
+    # psr
+    PhpCsFixer\Fixer\Basic\Psr0Fixer: ~
+    PhpCsFixer\Fixer\Basic\Psr4Fixer: ~
+
+    # psr-1
+    PHP_CodeSniffer\Standards\PSR1\Sniffs\Classes\ClassDeclarationSniff: ~
+    PHP_CodeSniffer\Standards\PSR1\Sniffs\Files\SideEffectsSniff: ~
+    PHP_CodeSniffer\Standards\PSR1\Sniffs\Methods\CamelCapsMethodNameSniff: ~
+
+    PhpCsFixer\Fixer\LanguageConstruct\DeclareEqualNormalizeFixer:
+        space: 'none'
+    PhpCsFixer\Fixer\Basic\BracesFixer:
+        'allow_single_line_closure': false
+        'position_after_functions_and_oop_constructs': 'next'
+        'position_after_control_structures': 'same'
+        'position_after_anonymous_constructs': 'same'
+
+    # merge issets
+    PhpCsFixer\Fixer\LanguageConstruct\CombineConsecutiveIssetsFixer: ~
+    PhpCsFixer\Fixer\LanguageConstruct\CombineConsecutiveUnsetsFixer: ~
+
+    # remove useless phpdoc
+    PhpCsFixer\Fixer\FunctionNotation\PhpdocToReturnTypeFixer: ~
+    PhpCsFixer\Fixer\Import\FullyQualifiedStrictTypesFixer: ~
+    PhpCsFixer\Fixer\Phpdoc\NoSuperfluousPhpdocTagsFixer:
+        allow_mixed: true
+
+    # arguable checkers, feel free to remove them
+    PhpCsFixer\Fixer\ClassNotation\OrderedClassElementsFixer:
+        order:
+            - 'use_trait'
+    PhpCsFixer\Fixer\Operator\ConcatSpaceFixer: ~
+    PhpCsFixer\Fixer\Whitespace\BlankLineBeforeStatementFixer:
+        statements:
+            - 'return'
+            - 'try'
+            - 'case'
+            - 'for'
+            - 'foreach'
+            - 'yield'
+            - 'while'
+            - 'switch'
+            - 'do'
+
+    # cognitive complexity - adjust level to your needs, starting from 100
+    Symplify\CodingStandard\Sniffs\CleanCode\CognitiveComplexitySniff:
+        maxCognitiveComplexity: 30
+
+    # this one is RISKY, but if you are sure your phpdoc is right then go on
+    SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff: ~
+    SlevomatCodingStandard\Sniffs\Namespaces\FullyQualifiedGlobalFunctionsSniff: ~
+    SlevomatCodingStandard\Sniffs\Namespaces\FullyQualifiedGlobalConstantsSniff: ~
+
+parameters:
+    paths:
+        - 'src'
+        - 'tests'
+    file_extensions:
+        - 'php'
+    exclude_files:
+        - 'Migrations/*'
+    skip:
+        PhpCsFixer\Fixer\ClassNotation\ClassAttributesSeparationFixer: ~
+        PhpCsFixer\Fixer\ClassNotation\OrderedClassElementsFixer: ~
+        PhpCsFixer\Fixer\Operator\IncrementStyleFixer: ~
+        PhpCsFixer\Fixer\Operator\UnaryOperatorSpacesFixer: ~
+        PhpCsFixer\Fixer\Phpdoc\PhpdocAnnotationWithoutDotFixer: ~
+        PhpCsFixer\Fixer\Phpdoc\PhpdocSummaryFixer: ~
+        SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff.MissingTraversableParameterTypeHintSpecification: ~
+        SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff.MissingTraversableReturnTypeHintSpecification: ~
+        PhpCsFixer\Fixer\CastNotation\CastSpacesFixer: ~
+        PhpCsFixer\Fixer\Operator\NotOperatorWithSuccessorSpaceFixer: ~
+        SlevomatCodingStandard\Sniffs\Classes\UnusedPrivateElementsSniff.UnusedProperty: ~
+        SlevomatCodingStandard\Sniffs\Classes\UnusedPrivateElementsSniff.UnusedConstant: ~
+        SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff.MissingTraversablePropertyTypeHintSpecification: ~
+        SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff.MissingReturnTypeHint:
+            - '*Doctrine/Type*'
+            - '*Interface.php'
+            - '*ShippingMethodQuery'
+            - '*SettingsResolver*'
+        SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff.MissingParameterTypeHint:
+            - '*Doctrine/Type*'
+        SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff:
+            - '*Filter'
+            - '*Voter'
+            - '*Authenticator'
+        PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis\AssignmentInConditionSniff.FoundInWhileCondition:
+            - '*ExportFetcher'
+        PhpCsFixer\Fixer\ClassNotation\VisibilityRequiredFixer:
+            - '*Spec.php'

@@ -1,0 +1,40 @@
+{
+    "name": "silversite/baselinker-sdk",
+    "type": "library",
+    "description": "BaseLinker API REST PHP Client",
+    "keywords": [
+        "silversite.pl",
+        "BaseLinker SDK"
+    ],
+    "homepage": "https://github.com/silversite/baselinker-sdk",
+    "license": "MIT",
+    "require": {
+        "php": ">=7.4",
+        "ext-json": "*",
+        "guzzlehttp/guzzle": "^6.5",
+        "symfony/property-access": "^4.3",
+        "symfony/serializer": "^4.3"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.0",
+        "symfony/http-client": "^5.0",
+        "symplify/easy-coding-standard": "^7.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "SilverSite\\BaseLinker\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\SilverSite\\BaseLinker\\": "tests"
+        }
+    },
+    "config": {
+        "bin-dir": "bin",
+        "sort-packages": true,
+        "preferred-install": {
+            "*": "dist"
+        }
+    }
+}
