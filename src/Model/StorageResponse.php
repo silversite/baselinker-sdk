@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace SilverSite\BaseLinker\Model;
 
-final class Storage
+final class StorageResponse
 {
     public string $id;
     public string $name;

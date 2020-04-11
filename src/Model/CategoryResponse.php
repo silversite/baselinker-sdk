@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace SilverSite\BaseLinker\Model;
 
-final class Storages
+final class CategoryResponse
 {
     public string $status;
 
-    public array $storages;
+    public string $storageId;
+
+    public string $categoryId;
 }

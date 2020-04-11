@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace SilverSite\BaseLinker\Resource;
 
 use SilverSite\BaseLinker\BaseLinkerRequestInterface;
-use SilverSite\BaseLinker\Model\Category;
+use SilverSite\BaseLinker\Model\CategoryRequest;
+use SilverSite\BaseLinker\Model\CategoryResponse;
 
 final class CategoryResource implements CategoryResourceInterface
 {
@@ -26,28 +27,15 @@ final class CategoryResource implements CategoryResourceInterface
         $this->storageId = $storageId;
     }
 
-    public function addCategory(string $name, int $parentId = 0): Category
+    public function addCategory(CategoryRequest $categoryRequest): CategoryResponse
     {
-        /** @var Category $result */
-        $result = $this->request->post(
-            Category::class,
-            self::METHOD_NAME,
-            [
-                'storage_id' => $this->storageId,
-                'name' => $name,
-                'parent_id' => $parentId,
-                'category_id' => '',
-            ]
-        );
-
-        return $result;
+        return $this->request->post(CategoryResponse::class, self::METHOD_NAME, $categoryRequest);
     }
 
-    public function updateCategory(string $name, int $categoryId, int $parentId = 0): Category
+    public function updateCategory(CategoryRequest $categoryRequest): CategoryResponse
     {
-        /** @var Category $result */
-        $result = $this->request->post(
-            Category::class,
+        return $this->request->post(
+            CategoryResponse::class,
             self::METHOD_NAME,
             [
                 'storage_id' => $this->storageId,
@@ -56,7 +44,5 @@ final class CategoryResource implements CategoryResourceInterface
                 'category_id' => $categoryId,
             ]
         );
-
-        return $result;
     }
 }

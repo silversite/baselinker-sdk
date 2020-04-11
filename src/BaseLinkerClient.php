@@ -6,6 +6,8 @@ namespace SilverSite\BaseLinker;
 
 use SilverSite\BaseLinker\Resource\CategoryResource;
 use SilverSite\BaseLinker\Resource\CategoryResourceInterface;
+use SilverSite\BaseLinker\Resource\ProductResources;
+use SilverSite\BaseLinker\Resource\ProductResourcesInterface;
 use SilverSite\BaseLinker\Resource\StoragesResource;
 use SilverSite\BaseLinker\Resource\StoragesResourceInterface;
 
@@ -26,5 +28,10 @@ class BaseLinkerClient implements BaseLinkerClientInterface
     public function getCategoryResource(string $storageId): CategoryResourceInterface
     {
         return new CategoryResource($this->request, $storageId);
+    }
+
+    public function getProductResource(string $storageId): ProductResourcesInterface
+    {
+        return new ProductResources($this->request, $storageId);
     }
 }

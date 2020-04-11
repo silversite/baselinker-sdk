@@ -10,6 +10,8 @@ use Symfony\Component\Serializer\SerializerInterface;
 
 final class BaseLinkerRequest implements BaseLinkerRequestInterface
 {
+    private const ERROR_STATUS = \ERROR::class;
+
     private HttpClientAdapterInterface $requestAdapter;
 
     private SerializerInterface $serializer;
@@ -27,9 +29,9 @@ final class BaseLinkerRequest implements BaseLinkerRequestInterface
     {
         $response = $this->requestAdapter->post($method, $parameters);
 
-        $result = json_decode($response, true, 512, JSON_THROW_ON_ERROR);
-        if ('ERROR' === $result['status']) {
-            throw new RequestError(sprintf('%s: %s', $result['error_code'], $result['error_message']));
+        $result = \json_decode($response, true, 512, \JSON_THROW_ON_ERROR);
+        if (self::ERROR_STATUS === $result['status']) {
+            throw new RequestError(\sprintf('%s: %s', $result['error_code'], $result['error_message']));
         }
 
         return $this->serializer->deserialize($response, $modelClass, 'json');
